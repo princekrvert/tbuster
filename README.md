@@ -1,2 +1,3 @@
 # tbuster
-broutefoce dir and file on a website from termux 
+this tool is under devlopment
+
