@@ -17,8 +17,6 @@
 * `./install.sh`
 * `./tbuster.py --help`
 
-<h2> Screenshots <h2>
- <img src="https://user-images.githubusercontent.com/56459297/138916441-dadb1b65-0366-4e4d-a3df-124f57ae034c.jpg" height="200px" width="500px">
  
  ### social media 
   <a href="https://www.instagram.com/princekrvert/"> <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"></a>
