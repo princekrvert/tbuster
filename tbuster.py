@@ -21,8 +21,12 @@ def help():
     print("\033[32;1m tbuster <full url> <wordllist path> ")
 # make a function to check the valid url 
 def isvalid(url):
-    if "http://" or "https://" in url :
+    if "http://" in url:
         return True
+    elif "https://" in url:
+         return True
+    else:
+        return False
 # make a function to resulve the ip 
 def getip(url):
     # first remove the https or http for the usr 
@@ -50,29 +54,32 @@ def makereq(path,url):
             else:
                 pass
 # handle the arguments of the user 
-if sys.argv[1] == "-h" or sys.argv[1] == "--help":
+if len(sys.argv) < 2:
     help()
-elif isvalid(sys.argv[1]):
-    if "-w" in sys.argv :
-        print("\033[0;1m [~] Checking wordlist path")
-        if os.path.exists(sys.argv[3]):
-            banner() 
-            ip = getip(sys.argv[1])
-            path = sys.argv[3]
-            print(" ")
-            print(f"[-] {sys.argv[1]} : {ip}")
-            makereq(path,sys.argv[1])
-    else:
-        print("\033[35;1m [~] Using default passlist ")
-        if os.path.exists("test.txt"):
-            banner()
-            ip = getip(sys.argv[1])
-            print(f"\033[33;1m [~] Using default wordlist \033[36;1m ")
-            print(f"[-] {sys.argv[1]} : {ip}")
-            makereq("test.txt",sys.argv[1])
-        else :
-            print("\033[31;1m File not found")
 else:
-    print("\033[31;1m [!] Invalid url format")
+    if sys.argv[1] == "-h" or sys.argv[1] == "--help":
+        help()
+    elif isvalid(sys.argv[1]):
+        if "-w" in sys.argv :
+            print("\033[0;1m [~] Checking wordlist path")
+            if os.path.exists(sys.argv[3]):
+                banner() 
+                ip = getip(sys.argv[1])
+                path = sys.argv[3]
+                print(" ")
+                print(f"[-] {sys.argv[1]} : {ip}")
+                makereq(path,sys.argv[1])
+        else:
+            print("\033[35;1m [~] Using default passlist ")
+            if os.path.exists("test.txt"):
+                banner()
+                ip = getip(sys.argv[1])
+                print(f"\033[33;1m [~] Using default wordlist \033[36;1m ")
+                print(f"[-] {sys.argv[1]} : {ip}")
+                makereq("test.txt",sys.argv[1])
+            else :
+                print("\033[31;1m File not found")
+    else:
+        print("\033[31;1m [!] Invalid url format")
     
 
