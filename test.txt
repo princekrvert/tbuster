@@ -1,0 +1,13 @@
+login.php
+login
+admin
+admin.php
+panel
+upload
+uploads 
+css
+js
+index
+index.php
+robots.txt
+
