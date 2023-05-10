@@ -6,6 +6,11 @@ import requests
 import sys
 import os 
 import socket
+import argparse
+parser = argparse.ArgumentParser(description='Mass ip locater')
+parser.add_argument("-u","--url",help='Enter the full url :')
+parser.add_argument('-w',"--wordlist",help="Path to the wordlist: " )
+args = parser.parse_args()
 # make a nice banner for the tool 
 def banner():
     print("""
@@ -43,7 +48,7 @@ def makereq(path,url):
             #make url 
             p_list = line.strip()
             f_url = f"{url}/{p_list}"
-            #print(f"\033[97;1m \r Checking.. {p_list}")
+            print(f"\r\033[97;1m \r Checking.. {p_list}::",end="")
             req = requests.get(f_url)
             if req.status_code == 200:
                 print(f" {f_url} Code:<{req.status_code}> ")
@@ -54,32 +59,30 @@ def makereq(path,url):
             else:
                 pass
 # handle the arguments of the user 
-if len(sys.argv) < 2:
-    help()
-else:
-    if sys.argv[1] == "-h" or sys.argv[1] == "--help":
-        help()
-    elif isvalid(sys.argv[1]):
-        if "-w" in sys.argv :
-            print("\033[0;1m [~] Checking wordlist path")
-            if os.path.exists(sys.argv[3]):
-                banner() 
-                ip = getip(sys.argv[1])
-                path = sys.argv[3]
-                print(" ")
-                print(f"[-] {sys.argv[1]} : {ip}")
-                makereq(path,sys.argv[1])
+if (args.url):
+    if(args.wordlist):
+        # now check for the path exitance 
+        if(os.path.exists(args.wordlist)):
+            #now check the 
+            if(isvalid(args.url)):
+                makereq(args.wordlist,args.url)
+            else:
+                print("\033[31;1m Invalid url form , Please provide url with http and https:")
+                sys.exit(1)
         else:
-            print("\033[35;1m [~] Using default passlist ")
-            if os.path.exists("test.txt"):
-                banner()
-                ip = getip(sys.argv[1])
-                print(f"\033[33;1m [~] Using default wordlist \033[36;1m ")
-                print(f"[-] {sys.argv[1]} : {ip}")
-                makereq("test.txt",sys.argv[1])
-            else :
-                print("\033[31;1m File not found")
+            print("033[31;1m Provided path does not exists ")
+            choise = input("033[32;1m Want use default wordlist Y/N")
+            if choise == "Y" or choise == "y":
+                # then use the wordlist .....
+                makereq("test.txt",args.url)
+            else:
+                sys.exit(1)
     else:
-        print("\033[31;1m [!] Invalid url format")
-    
+        #check if url is valid 
+        if(isvalid(args.url)):
+            makereq("test.txt",args.url)
+        else:
+            print("\033[31;1m Please provide a valid url:")
+else:
+    print("\033[35;1m Please provide a url")
 
